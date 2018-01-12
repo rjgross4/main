@@ -1,0 +1,65 @@
+Public-Key Cryptography
+1. A message/block is encrypted with the target's public key (Anyone can encrypt with a public key)
+2. Only the person with the private key tied to that public key can decrypt it
+
+1. You can combine your private key and someone else's public key to get a shared secret code
+
+1. Hashing makes identical input produce identical output.. however IDENTICAL INPUT INCLUDES ALL HASHES BEFORE IT TOO
+2. Copy pasting the same string after another will get different output because now it factors in that previous hash (order of input matters)
+
+GENERAL
+1. Each coin is a chain of blocks on the ledger... think of this like rows in excel
+2. Each block in that chain is the transactions for a coin
+3. Modifying part of a blockchain would require modify all hashes after the part over again... a daunting task
+4. After 3 nodes confirm the blockchain - it becomes impossible to undo the transaction... all of this if about removing chargebacks
+5. You generally wait for up to 3 nodes confirm ownership of a coin and that it hasn't been double spent
+
+
+TRANSACTIONS
+--------------------------
+1. A coin is a chain of Hashes... to transfer a coin your private key hash is added and next guys public key is added to the chain
+2. To prevent double-spending - proof of work slows down all transactions through the system and means that an attacker
+   would have to build a second chain faster than the original in order to successfully doublespend... this is a 51% attack
+
+
+ATTACKING THE NETWORK
+--------------------------
+1. 51% attack
+	If someone obtained 51% of CPU power to steal back his payments - he would make more money generating coins as if he
+	takes down the system his coins are worthless anyway
+
+2. Government attack
+	Proof-of-work and overpowering others CPU will cost a ton of money
+
+PROOF OF WORK
+---------------------------
+people vote using their CPU to build the biggest chain
+More people try to mine causes the moving average of blocks created to go up which makes proof of work more and more difficult. Coin creation is thus always the same speed.
+If people drop out - it becomes cheaper to mine as it requires less CPU and justifies mining
+
+Proof of work - presenting more and more challenging calculations that have to be hashed to a hash the server knows
+1. Server presents a string and an expectation for what the hash should look like... such as 4 zeros. 
+2. Requester appends random stuff on the end of the challenge string and hashes it (using sha256) until it finds something that fits 
+   the hash requirements (such as 4 zeros)
+3. It sends the solution it appended to the challenge string to generate the hash to the server as the answer
+4. You can require hashes to access your website that are solutions to bitcoin problems and monitize the website at others expense
+
+SHA256 is a hashing algorithm
+
+Proof-of-work is done at 2 points:
+1. Mining
+2. Nodes creating next block after a transactions
+
+NETWORK
+------------------------------
+1. Transactions broadcast to all nodes
+2. Each node collects new transactions into a block
+3. Each node creates a proof-of-work for its block (If multiple blocks - whichever it solves first is the accepted payment and broadcast to all nodes)
+4. When a node finds a proof-of-work, it broadcasts the block to all nodes
+5. Nodes accept the block only if all transactions in it are valid and not already spent
+6. Nodes express acceptance of a block by creating the next block in the chain using
+   the hash of the accepted block as the previous hash
+
+If a node misses a block then when it later recieves a more updated chain it will switch over)
+This is called PARALLEL PROGRAMMING... minority takes majority position
+
